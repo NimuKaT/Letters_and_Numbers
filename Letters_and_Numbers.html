@@ -1,14 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="stylesheet.css">
-        <script type="text/javascript" src="script.js" ></script>
+        <script type="text/javascript" src="script.js" defer></script>
         <script type="text/javascript" src="nine.js" ></script>
         <script type="text/javascript" src="dictionary_new.js" ></script>
     </head>
     <body>
-        <div id="main_container">
-            <div id="game_container"></div>
-            
-        </div>     
+        <p id="menu_title">MIX UP</p>
+        <p id="how_to_play">How To Play</p>
+        <div id="menu">
+            <div id="start" class="menu_style">
+                <div id="start_buttonl" class="start_button" type="button" onclick="start()"></div>
+                <div id="help_buttonl" class="help_button" type="button" onclick="help()"></div>
+                <div id="back_button" clsss="back" type="button" onclick="back_title()">Back</div>
+                <div id="note">
+                    <p id="note_title">Word Puzzle Rule: </p>
+                    <p>To play the Word Puzzle Game, you must make the longest English word you can from the letters.</p>
+                    <p>For example, you may be given the letters I R E T U C R R E. The answer, the longest word possible is RECRUITER.</p>
+                    <p id="note_title">Number Puzzle Rule: </p>
+                    <p>To play the Number Puzzle Game, you must get as close as possible to the target number using the basic arithmetic operations and some or all of the smaller numbers. </p>
+                    <p>For example, you may be shown the values 5, 8, 35, 20, 10 and the target number 54. The answer, in this case, is (8 * 35 - 20 + 10) / 5 = 54.</p>
+                
+                    
+
+                </div>
+            </div>
+            <div id="middle_part" class="middle_style">
+                <div id="word_puzzle_buttonl" class="game1_button" type="button" onclick="gw1()"></div>
+                <div id="number_puzzle_buttonl" class="game2_button" type="button" onclick="gw2()"></div>
+                <div id="back_button1" clsss="back" type="button" onclick="back_game_selection()">Menu</div>
+                <div id="back_button2" class="back" type="button" onclick="back_game_menu()">Back</div>         
+            </div>
+            <div id="word_game" class="1">
+                <p id="g1_title">Word Puzzle</p>
+            </div>
+            <div id="number_game" class="2">
+                <p id="g2_title">Number Puzzle</p>
+        </div>      
+    
     </body>
 </html>

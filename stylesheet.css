@@ -1,0 +1,263 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-image:url("img/back.png");
+    }
+
+#menu_title{
+    display: inline;
+    font-size: 70px;
+    font-family: cursive;
+    color:tomato;
+    position: absolute;
+    left: 40%;
+    top:0%;
+    }
+#how_to_play{
+    display: none;
+    font-size: 70px;
+    font-family: cursive;
+    color:tomato;
+    text-align: left;
+}
+.start_button{
+    display: inline;
+    width: 135px;
+    height: 130px;
+    background:white;
+    position: absolute;
+    top: 38%;
+    left: 45%;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.start_button:before{
+    content: url('img/play_icon.png'); 
+    position: absolute;
+    top: 38%;
+    left: 28%;
+    transition:all 0.5s;
+    border-radius: 50%;
+}
+.start_button:hover:before{
+    top:-40px;
+}
+.start_button:after{
+    content: url('img/start_icon.png');
+    position: absolute;
+    top: calc(100% + 30px);
+    left: 0%;
+    transition:all 0.5s;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.start_button:hover:after{
+    top:0%;
+}
+/*--------------------------------------------------*/
+.help_button{
+    display: inline;
+    width: 135px;
+    height: 130px;
+    background:white;
+    position: absolute;
+    top: 38%;
+    left: 18%;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.help_button:before{
+    content: url('img/help.png'); 
+    position: absolute;
+    top: 13%;
+    left: 0%;
+    transition:all 0.5s;
+    border-radius: 50%;
+}
+.help_button:hover:before{
+    top:-80px;
+}
+.help_button:after{
+    content: url('img/help_icon.png');
+    position: absolute;
+    top: calc(100% + 20px);
+    left: 25%;
+    transition:all 0.5s;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.help_button:hover:after{
+    top:25%;
+
+}
+#back_button{
+    display: none;
+    height: 60px;
+    width: 100px;
+    position: absolute;
+    top: 85%;
+    left: 80%;
+    background:tomato;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    font-family: cursive;
+    }
+#back_button:hover{
+    cursor: pointer;
+    border: 3px black solid;
+}
+/*_____________sub page_____________________________*/
+#note{
+    display: none;
+    font-size: 18px;
+    font-family: cursive;
+    position: absolute;
+    top: 30%;
+    left: 10%;
+}
+#note_title{
+    font-size:25px;
+    font-family: impact;
+}
+
+/*______________sec page___________________________*/
+#word_puzzle_buttonl{
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    width: 200px;
+    height: 400px;
+    background: black;
+    border-radius: 10%;
+    overflow: hidden;
+    cursor: pointer;
+}
+#word_puzzle_buttonl:before{
+    content:url('img/word_puzzle_before.png');
+    position: absolute;
+    top: 39%;
+    left: 18%;
+    transition:all 0.5s;
+}
+#word_puzzle_buttonl:hover:before{
+    top:-30px;
+}
+#word_puzzle_buttonl:after{
+    content: url('img/word_puzzle.png');
+    position: absolute;
+    top: calc(100% + 20px);
+    left: 15%;
+    overflow: hidden;
+    transition:all 0.5s;
+}
+
+#word_puzzle_buttonl:hover:after{
+    top:20%;
+}
+#number_puzzle_buttonl{
+    display: none;
+    position: absolute;
+    top: 30%;
+    left: 55%;
+    width: 200px;
+    height: 400px;
+    border-radius: 10%;
+    background: white;
+    overflow: hidden;
+    cursor: pointer;
+}
+#number_puzzle_buttonl:before{
+    content:url('img/number_puzzle_before.png');
+    position: absolute;
+    top: 42%;
+    left: 32%;
+    transition:all 0.5s;
+}
+#number_puzzle_buttonl:hover:before{
+    top: 350px;
+}
+#number_puzzle_buttonl:after{
+    content: url('img/number_puzzle.png');
+    position: absolute;
+    top: -102%;
+    left: 12%;
+    transition:all 0.5s;
+    overflow: hidden;
+}
+#number_puzzle_buttonl:hover:after{
+    top: 15%;
+}
+/*--------------------------------------------------------------*/
+#back_button1{
+    display: none;
+    height: 60px;
+    width: 100px;
+    position: absolute;
+    top: 85%;
+    left: 80%;
+    background:black;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    font-family: cursive;
+}
+#back_button1:hover{    
+    cursor: pointer;
+    border: 3px white solid;
+}
+
+#back_button2{
+    display: none;
+    height: 60px;
+    width: 100px;
+    position: absolute;
+    top: 85%;
+    left: 80%;
+    background:black;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    font-family: cursive;
+    }
+#back_button2:hover{
+    cursor: pointer;
+    border: 3px white solid;
+}
+/*-------------------------------game 1----------------------------------*/
+#word_game{
+    display:none;
+    width: 800px;
+    height: 550px;
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    background-color: #ffffff;
+    border:4px black solid;
+}
+#g1_title{
+    font-size: 30px;
+    font-family: cursive;
+    color: tomato;
+    text-align: center;
+}
+/*-------------------------------game 2----------------------------------*/
+#number_game{
+    display:none;
+    width: 800px;
+    height: 550px;
+    position: fixed;
+    top: 10%;
+    left: 10%;
+    background-color: #ffffff;
+    border:4px black solid;
+}
+#g2_title{
+    font-size: 30px;
+    font-family: cursive;
+    color: tomato;
+    text-align: center;
+}

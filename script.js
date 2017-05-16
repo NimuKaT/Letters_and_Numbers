@@ -2,6 +2,86 @@
 //              UI ELEMENTS                 //
 //                                          //
 
+var st = document.getElementById('start_buttonl'),
+    he = document.getElementById('help_buttonl'),
+    ho = document.getElementById("how_to_play"),
+    no = document.getElementById("note"),
+    me = document.getElementById("menu_title"),
+    ba = document.getElementById('back_button'),
+    ba1 = document.getElementById('back_button1'),
+    ba2 = document.getElementById('back_button2'),
+    g1 = document.getElementById("word_puzzle_buttonl"),
+    g2 = document.getElementById("number_puzzle_buttonl"),
+    mg1 = document.getElementById('word_game'),
+    mg2 = document.getElementById('number_game');
+
+
+
+function start(){
+        st.style.display = "none";
+        he.style.display = "none";
+        ho.style.display = "none";
+        me.style.display = "inline";
+        ba1.style.display = "inline";
+        g1.style.display = "inline";
+        g2.style.display = "inline";
+    }
+function back_title(){
+        st.style.display = "inline";
+        he.style.display = "inline";
+        ba.style.display = "none";
+        no.style.display = "none";
+        ho.style.display = "none";
+        me.style.display = "inline";
+    }
+function help(){
+        st.style.display = "none";
+        he.style.display = "none";
+        ba.style.display = "inline";
+        no.style.display = "inline";
+        ho.style.display = "inline";
+        me.style.display = "none";
+    }
+function back_game_selection(){
+        st.style.display = "inline";
+        he.style.display = "inline";
+        ho.style.display = "none";
+        me.style.display = "inline";
+        g1.style.display = "none";
+        g2.style.display = "none";
+        ba1.style.display ="none";
+    }
+function gw1(){
+        g1.style.display = "none";
+        g2.style.display = "none";
+        me.style.display = "none" ;
+        ba1.style.display = "none";
+        ba2.style.display = "inline";
+        mg1.style.display = "inline";
+        mg2.style.display = "none";
+}
+function gw2(){
+        g1.style.display = "none";
+        g2.style.display = "none"; 
+        me.style.display = "none";
+        ba1.style.display = "none";
+        ba2.style.display = "inline";
+        mg1.style.display = "none";
+        mg2.style.display = "inline";
+}
+
+function back_game_menu(){
+        g1.style.display = "inline";
+        g2.style.display = "inline"; 
+        me.style.display = "inline";
+        ba1.style.display = "inline";
+        ba2.style.display = "none"; 
+        mg1.style.display = "none"; 
+        mg2.style.display = "none";
+
+}
+
+
 
 
 
