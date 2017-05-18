@@ -297,7 +297,7 @@ function calculate_equation( equation ){
 
 
 //                                          //
-//              lETTERS GAME                //
+//              LETTERS GAME                //
 //                                          //
 
 function random_nine_letter(){
@@ -349,6 +349,45 @@ function letters_game(){
     this.input = "";
 
     this.check_valid_input = function( input ){
+        
+        var input_letters = input.split();
+        var input_length = input_letters.length();
+        var valid_letters = this.letters;
+        var itterator = 0;
+        var search_hit;
+        var is_valid = false;
+        
+        for( var i = 0; i < input_length; i++; ){
+            
+            search_hit = false;
+            
+            for( var it = 0; it < valid_letters.length(); it++; ){
+            
+                if ( input_letters[i] === valid_letters[it] ){
+                    
+                    valid_letters.splice( it, 1 );
+                    search_hit = true;
+                    break;
+            
+                }
+            
+            }
+
+            if ( !search_hit ){
+                
+                break;
+            
+            }
+
+            if ( i == input_length - 1 ){
+
+                is_valid = true;
+
+            }
+
+        }
+
+        return is_valid;
 
     }
 
