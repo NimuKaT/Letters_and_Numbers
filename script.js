@@ -175,8 +175,36 @@ function random_nine_letter(){
 
 }
 
-function shuffle_letter( letter ){
+function shuffle_letter( word ){
+    
+    var output = word.split("");
+    var str_length = output.length;
+    var repeats = str_length - 3;
+    var index = 0;
+    var random_index_one = 0;
+    var random_index_two = 0;
+    var temp_value = "";
 
+    while (index < repeats) {
+
+        while (random_index_one == random_index_two){
+            random_index_one = Math.floor( Math.random() * str_length);
+            random_index_two = Math.floor( Math.random() * str_length);
+        }
+
+        temp_value = output[random_index_one];
+        output[random_index_one] = output[random_index_two];
+        output[random_index_two] = temp_value;
+        temp_value = "";
+
+        index++;
+
+        if ( output == word ){
+            index = 0;
+        }
+    }
+
+    return output;
 }
 
 
