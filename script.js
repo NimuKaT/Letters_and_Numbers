@@ -348,40 +348,47 @@ function letters_game(){
     this.letters = shuffle_letter(this.random_word);
     this.input = "";
 
+    // To be optimised with reg. exp.
     this.check_valid_input = function( input ){
         
-        var input_letters = input.split();
-        var input_length = input_letters.length();
-        var valid_letters = this.letters;
+        var input_letters = input.split('');
+        var input_length = input_letters.length;
+        var valid_letters = this.letters.slice(0);
         var itterator = 0;
         var search_hit;
         var is_valid = false;
         
-        for( var i = 0; i < input_length; i++; ){
-            
-            search_hit = false;
-            
-            for( var it = 0; it < valid_letters.length(); it++; ){
-            
-                if ( input_letters[i] === valid_letters[it] ){
-                    
-                    valid_letters.splice( it, 1 );
-                    search_hit = true;
-                    break;
-            
-                }
-            
-            }
-
-            if ( !search_hit ){
+        // Validates all characters are letters with length 1 to 9
+        if(input.match(/\w{1,9}/)){
+         
+            // Validate input to only contains letters from the list
+            for( var i = 0; i < input_length; i++ ){
                 
-                break;
-            
-            }
+                search_hit = false;
+                
+                for( var it = 0; it < valid_letters.length; it++   ){
+                
+                    if ( input_letters[i] === valid_letters[it] ){
+                        
+                        valid_letters.splice( it, 1 );
+                        search_hit = true;
+                        break;
+                
+                    }
+                
+                }
 
-            if ( i == input_length - 1 ){
+                if ( !search_hit ){
+                    
+                    break;
+                
+                }
 
-                is_valid = true;
+                if ( i == input_length - 1 ){
+
+                    is_valid = true;
+
+                }
 
             }
 
