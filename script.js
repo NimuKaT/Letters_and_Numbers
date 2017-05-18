@@ -152,10 +152,145 @@ function generate_number_list( min, max ){
     return number_list;
 }
 
-var number = "\s*(\d{1,2}|100)\s*";
-var operator = "\s*[+,\-,/,*,x]\s*";
-var single_operation = new RegExp("/\s*"+number+operator+number+"\s*/");
+var number = /\-?\d+\.?\d*/g;
 
+var multi_div_equation = /\-?\d+\.?\d*[\*x\/]\-?\d+\.?\d*/g;
+
+var add_sub_equation = /\-?\d+\.?\d*[\+\-]\-?\d+\.?\d*/g;
+
+var equation_with_brackets = /\(\-?\d+\.?\d*(?:[\+\-\*\/x]\-?\d+\.?\d*)+\)/g;
+var equation_with_out_brackets = /\-?\d+\.?\d*(?:[\+\-\*\/x]\-?\d+\.?\d*)+/g;
+
+var test_equation = "  23  + ( 34 - 23 * ( 21 / 7) + 4) x 2    "
+var test_equation2 = "  23  +  34 - 23 *  21 / 7 + 4 x 2    "
+
+function calculate_equation( equation ){
+    
+    var new_equation = equation.replace(/ /g, "");
+    var regular_expression_object;
+    var current_bracket;
+    var current_expression;
+    var numbers_object;
+    var result = 0;
+
+    while (new_equation.match(/\-?\d*\.?\d*/)){
+
+        current_bracket = new_equation.match(equation_with_brackets);
+        if (current_bracket){    
+            current_expression = current_bracket[0].match(multi_div_equation)
+            
+            while( current_expression ){
+
+                if( current_expression[0].match( /[/]/ ) ){
+                    number_object = current_expression[0].match( number );
+                    result = Number(number_object[0]) / Number(number_object[1]);
+                }
+                
+                else if( current_expression[0].match( /[x\*]/ ) ){
+                    number_object = current_expression[0].match( number );
+                    result = Number(number_object[0]) * Number(number_object[1]);
+                }
+
+                new_equation = new_equation.replace( current_expression[0].toString(), result.toString() );
+                
+                result = 0;
+
+                current_bracket = new_equation.match(equation_with_brackets);
+                if(!current_bracket){
+                    break;
+                }
+                current_expression = current_bracket[0].match(multi_div_equation);
+            }
+
+            
+            if(current_bracket){
+                current_expression = current_bracket[0].match(add_sub_equation)
+
+                while( current_expression ){
+                    if( current_expression[0].match( /[+]/ ) ){
+                        number_object = current_expression[0].match( number );
+                        result = Number(number_object[0]) + Number(number_object[1]);
+                    }
+                    else if(current_expression[0].match( /[-]/ ) ){
+                        number_object = current_expression[0].match( number );
+                        result = Number(number_object[0]) - Number(number_object[1]);
+                    }
+
+                    new_equation = new_equation.replace( current_expression[0].toString(), result.toString() );
+                    result = 0;
+
+                    current_bracket = new_equation.match(equation_with_brackets);
+                    if(!current_bracket){
+                        break;
+                    }
+                    current_expression = current_bracket[0].match(add_sub_equation)
+                }
+
+            }
+
+            var temp = new_equation.match( /\(\-?\d+\.?\d*(?=\))/ )[0];
+            var value = temp.slice(1, temp.length);
+            new_equation = new_equation.replace( new_equation.match(/\(\-?\d+\.?\d*\)/)[0], value );
+        }
+        else{
+            current_bracket = new_equation.match(equation_with_out_brackets);
+            while( current_expression ){
+
+                if( current_expression[0].match( /[/]/ ) ){
+                    number_object = current_expression[0].match( number );
+                    result = Number(number_object[0]) / Number(number_object[1]);
+                }
+                
+                else if( current_expression[0].match( /[x\*]/ ) ){
+                    number_object = current_expression[0].match( number );
+                    result = Number(number_object[0]) * Number(number_object[1]);
+                }
+
+                new_equation = new_equation.replace( current_expression[0].toString(), result.toString() );
+                
+                result = 0;
+
+                current_bracket = new_equation.match(equation_with_out_brackets);
+                if(!current_bracket){
+                    break;
+                }
+                current_expression = current_bracket[0].match(multi_div_equation);
+            }
+
+            current_expression = current_bracket[0].match(add_sub_equation)
+            if(current_bracket){
+                current_expression = current_bracket[0].match(add_sub_equation)
+
+                while( current_expression ){
+                    if( current_expression[0].match( /[+]/ ) ){
+                        number_object = current_expression[0].match( number );
+                        result = Number(number_object[0]) + Number(number_object[1]);
+                    }
+                    else if(current_expression[0].match( /[-]/ ) ){
+                        number_object = current_expression[0].match( number );
+                        result = Number(number_object[0]) - Number(number_object[1]);
+                    }
+
+                    new_equation = new_equation.replace( current_expression[0].toString(), result.toString() );
+                    result = 0;
+
+                    current_bracket = new_equation.match(equation_with_out_brackets);
+                    if(!current_bracket){
+                        break;
+                    }
+                    current_expression = current_bracket[0].match(add_sub_equation)
+                }
+
+            }
+            break;
+        }
+    }
+    return new_equation;
+
+     
+
+    return regular_expression_object;
+}
 
 
 
@@ -205,6 +340,26 @@ function shuffle_letter( word ){
     }
 
     return output;
+}
+
+function letters_game(){
+
+    this.random_word = random_nine_letter();
+    this.letters = shuffle_letter(this.random_word);
+    this.input = "";
+
+    this.check_valid_input = function( input ){
+
+    }
+
+    this.get_score = function(){
+
+    }
+
+    this.log_word = function(){
+        console.log(this.random_word);
+    }
+
 }
 
 
