@@ -244,6 +244,77 @@ body{
     color: tomato;
     text-align: center;
 }
+
+.blank{
+    display: inline;
+    padding: 0px 12px;
+    background-color: black;
+    border: 5px solid #ccc;
+    float: left;
+    position: relative;
+    top: 5%;
+    left: 12%;
+    width: 30px;
+    height: 50px;
+}
+.drag_1{
+    display: inline;
+    position: relative;
+    background-color: tomato;
+    border: 1px solid #ffffff;
+    padding: 20px 30px;
+    float: top;
+    top:100px;
+    left:13.5%;
+    width: 30px;
+    height: 50px;
+}
+.drag_2{
+    display: inline;
+    position: relative;
+    background-color: tomato;
+    border: 1px solid #ffffff;
+    padding: 20px 30px;
+    float: top;
+    top:170px;
+    left:-9.8%;
+}
+.drag_3{
+    display: inline;
+    position: relative;
+    background-color: tomato;
+    border: 1px solid #ffffff;
+    padding: 20px 30px;
+    float: top;
+    top:240px;
+    left:-33%;
+    width: 30px;
+    height: 50px;
+}
+.drag_1, .drag_2, .drag_3:hover{
+    cursor: move;
+}
+
+#check_button{
+    display: inline;
+    height: 60px;
+    width: 100px;
+    position: absolute;
+    top: 65%;
+    left: 60%;
+    background:tomato;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    font-family: cursive;
+    border-radius: 10px;
+}
+#check_button:hover{    
+    cursor: pointer;
+    border: 3px white solid;
+}
+}
+
 /*-------------------------------game 2----------------------------------*/
 #number_game{
     display:none;
@@ -261,3 +332,4 @@ body{
     color: tomato;
     text-align: center;
 }
+

@@ -390,8 +390,8 @@ function letters_game(){
 
                 }
 
-            }
-
+            
+}
         }
 
         return is_valid;
