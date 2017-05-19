@@ -390,12 +390,41 @@ function letters_game(){
 
                 }
 
-            
-}
+            }
+
         }
 
         return is_valid;
 
+    }
+
+    this.is_word = function( word ){
+        
+        var is_word = false;
+        var min = 0;
+        var max = dictionary.length; 
+        var index = Math.floor( min +(( min - min ) / 2) );
+
+        while ( max - min > 1 ){
+            if ( dictionary[index] === word ){
+                is_word = true;
+                break;
+            }
+            if ( word < dictionary[index] ){
+                max = index;
+            }
+            else if ( word > dictionary[index] ){
+                min = index;
+            }
+            else{
+                console.log("binary search error");
+                break;
+            }
+
+            index = Math.floor( min +(( max - min ) / 2) );
+        }
+
+        return is_word;
     }
 
     this.get_score = function(){
