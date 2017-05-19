@@ -385,8 +385,10 @@ function letters_game(){
                 }
 
                 if ( i == input_length - 1 ){
-
-                    is_valid = true;
+                    
+                    if ( this.is_word( input ) ){
+                        is_valid = true;
+                    }
 
                 }
 
