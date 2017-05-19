@@ -292,6 +292,36 @@ function calculate_equation( equation ){
     return regular_expression_object;
 }
 
+function check_valid_numbers( euqation, number_list ){
+
+    var valid_numbers = number_list.slice(0);
+    var numbers = euqation.match( /(?:[1-9](?:\d?))|100/g );
+    var is_valid = false;
+    var search_hit = false;
+
+    for( var i = 0; i < numbers.length; i++){
+        search_hit = false;
+        for( var it = 0; it < valid_numbers.length; it++ ){
+            if ( numbers[i] == valid_numbers[it] ){
+                valid_numbers.splice( it, 1 );
+                search_hit = true;
+                break;
+            }
+        }
+
+        if ( !search_hit ) {
+            break;
+        }
+
+    }
+
+    if ( search_hit ){
+        is_valid = true;
+    }
+
+    return is_valid;
+
+}
 
 
 
