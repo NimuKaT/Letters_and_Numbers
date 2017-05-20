@@ -323,6 +323,23 @@ function check_valid_numbers( euqation, number_list ){
 
 }
 
+function check_valid_equation( equation ){
+    var is_valid = false;
+    var has_match = false;
+    var new_equation = equation.replace( / /g, "" );
+
+    while( new_equation.match( /\((?:100|[1-9]{1,2})(?:[\+\-\*\/x](?:100|[1-9]{1,2}))+\)/ ) ){
+        new_equation = new_equation.replace( /\((?:[1-9]{1,2}|100)(?:[\+\-\*\/](?:[1-9]{1,2}|100))+\)/, "100" );
+    }
+    
+    if ( new_equation.match( /(?:100|[1-9]{1,2})(?:[\+\-\*\/x](?:100|[1-9]{1,2}))+/ ) ){
+        if ( new_equation.match( /(?:100|[1-9]{1,2})(?:[\+\-\*\/x](?:100|[1-9]{1,2}))+/ )[0] == new_equation ) {
+            is_valid = true;
+        }
+    }
+    return is_valid;
+}
+
 
 
 
