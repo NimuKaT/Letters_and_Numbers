@@ -515,7 +515,76 @@ function generate_target_number( numbers ){
 
 }
 
+function numbers_game(){
 
+    this.numbers;
+    this.target_number;
+    this.user_answer;
+
+    this.init = function( hardmode ){
+
+        if( !hardmode){
+
+            this.numbers = generate_numbers( 4, 1);
+
+        }
+        else{
+
+            this.numbers = generate_numbers( 3, 2 );
+
+        }
+
+        this.target_number = generate_target_number( this.numbers );
+        this.user_answer = false;
+
+    }
+
+    this.answer = function( input ){
+
+        if( check_valid_numbers( input, this.numbers ) ){
+
+            if( check_valid_equation( input ) ){
+
+                this.user_answer = evaluate( input );
+
+                if( ! Number.isInteger(this.user_answer) ){
+
+                    this.user_answer = false;
+                    console.log("Your answer is not a whole number! Only whole numbers are accepted as an answer.");
+
+                }
+                else if( this.user_answer < 0 ){
+
+                    this.user_answer = false;
+                    console.log("Your answer is a negative number! Only positive numbers are accepted as an answer.");
+
+                }
+
+            }
+            else{
+            
+                this.user_answer = false;
+                console.log("Your answer is not a valid equation! Make sure your answer can be evaluated and no illegal symbols are used.");
+            
+            }
+
+        }
+        else{
+
+            this.user_answer = false;
+            console.log("Your answer contains numbers not included in the list! Make sure you only include numbers that are in the list.")
+
+        }
+
+    }
+
+    this.get_score = function(){
+
+
+
+    }
+
+}
 
 
 
@@ -572,9 +641,18 @@ function shuffle_letter( word ){
 
 function letters_game(){
 
-    this.random_word = random_nine_letter();
-    this.letters = shuffle_letter(this.random_word);
-    this.input = "";
+    this.random_word;
+    this.letters;
+    this.user_answer;
+
+
+    this.init = function( hardmode ){
+
+        this.random_word = random_nine_letter();
+        this.letters = shuffle_letter(this.random_word);
+        this.user_answer = false;
+
+    }
 
     // To be optimised with reg. exp.
     this.check_valid_input = function( input ){
@@ -672,10 +750,22 @@ function letters_game(){
 
     this.get_score = function(){
 
+
+
     }
 
-    this.log_word = function(){
-        console.log(this.random_word);
+    this.answer = function( input ){
+        if( this.check_valid_input( input ) ){
+
+            this.user_answer = input;
+
+        }
+        else{
+
+            this.user_answer = false;
+
+        }
+        
     }
 
 }
