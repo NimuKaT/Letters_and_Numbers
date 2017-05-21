@@ -337,7 +337,6 @@ function evaluate( equation ){
 
 }
 
-
 function check_valid_numbers( equation, number_list ){
 
     var valid_numbers = number_list.slice(0);
@@ -427,6 +426,97 @@ function modify_equation( equation ){
     return new_equation;
 
 }
+
+function generate_target_number( numbers ){
+
+    var target_number = -1;
+    var working_numbers;
+    var number_of_numbers;
+    var indexes;
+    var random_index;
+    var random_index_one;
+    var random_index_two;
+
+    while( target_number < 0 || target_number > 10000 || ! Number.isInteger( target_number ) ){
+        
+        working_numbers = numbers.slice(0);
+        number_of_numbers = 0;
+        
+        if( numbers.length > 5){
+        
+            number_of_numbers = numbers.length -  3 + Math.floor( Math.random() * 3 );
+            
+        }
+        else{
+
+            number_of_numbers = numbers.length;
+
+        }
+
+        
+        indexes = generate_number_list( 0, number_of_numbers - 1 );
+        random_index = 0;
+
+        for( var i = 0; i < numbers.length - number_of_numbers ; i++){
+
+            random_index = Math.floor( Math.random() * indexes.length );
+            working_numbers.splice( random_index, 1);
+
+        }
+
+        random_index_one = 0;
+        random_index_two = 0;
+
+        while( working_numbers.length > 1 ){
+           
+            random_index_one = Math.floor( Math.random() * working_numbers.length );
+            random_index_two = Math.floor( Math.random() * working_numbers.length );
+            
+            while( random_index_one == random_index_two){
+
+                random_index_two = Math.floor( Math.random() * working_numbers.length );
+
+            }
+
+            operation = Math.floor( Math.random() * 4 );
+
+            switch(operation){
+
+                case 0:
+                    result = working_numbers[random_index_one] + working_numbers[random_index_two]
+                    break;
+
+                case 1:
+                    result = working_numbers[random_index_one] - working_numbers[random_index_two];
+                    break;
+
+                case 2:
+                    result = working_numbers[random_index_one] * working_numbers[random_index_two];
+                    break;
+
+                case 3:
+                    result = working_numbers[random_index_one] / working_numbers[random_index_two];
+                    break;
+
+            }
+
+            working_numbers.splice( random_index_one, 1 );
+            working_numbers.splice( random_index_two, 1 );
+
+            working_numbers.push(result);
+
+        }
+
+        target_number = working_numbers[0];
+
+    }
+
+    return target_number;
+
+}
+
+
+
 
 
 //                                          //
