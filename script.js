@@ -152,145 +152,189 @@ function generate_number_list( min, max ){
     return number_list;
 }
 
-var number = /\-?\d+\.?\d*/g;
 
-var multi_div_equation = /\-?\d+\.?\d*[\*x\/]\-?\d+\.?\d*/g;
+// Checks for zero or one "-" sign
+// Checks for either value with 1 - 9,
+// Followed by zero or more repetition of 0 - 9,
+// Or a single 0
+// Checks for zero or one of
+// A "." followed by a zero or more repetition of 0 - 9
 
-var add_sub_equation = /\-?\d+\.?\d*[\+\-]\-?\d+\.?\d*/g;
+var number = /-?(?:[1-9]\d*|0)(?:\.\d+)?/;
+var valid_number = /(?:100|[1-9]\d?)(?!\d\.)/;
 
-var equation_with_brackets = /\(\-?\d+\.?\d*(?:[\+\-\*\/x]\-?\d+\.?\d*)+\)/g;
-var equation_with_out_brackets = /\-?\d+\.?\d*(?:[\+\-\*\/x]\-?\d+\.?\d*)+/g;
+var addition = /\+/;
+var subtraction = /[\-]/;
+var add_sub = new RegExp( "[" + addition.source + subtraction.source.slice(1,-1) + "]" );
 
-var test_equation = "  23  + ( 34 - 23 * ( 21 / 7) + 4) x 2    "
-var test_equation2 = "  23  +  34 - 23 *  21 / 7 + 4 x 2    "
+var multiplication = /[\*x\u{d7}]/u;
+var division = /[\/\u{f7}]/u;
+var mult_div = new RegExp( "[" + multiplication.source.slice(1,-1) + division.source.slice(1,-1) + "]", "u" );
+
+var valid_signs = new RegExp( "["+addition.source+subtraction.source.slice(1,-1)+multiplication.source.slice(1,-1)+division.source.slice(1,-1)+"]","u");
+
+var multi_div_equation = new RegExp( number.source+mult_div.source+number.source, "u");
+var add_sub_equation = new RegExp( number.source+add_sub.source+number.source ); // /\-?\d+\.?\d*[\+\-]\-?\d+\.?\d*/g;
+
+var equation_with_brackets = new RegExp( "\\("+number.source+"(?:"+valid_signs.source+number.source+")+\\)", "u"); // /\(\-?\d+\.?\d*(?:[\+\-\*\/x]\-?\d+\.?\d*)+\)/g;
+var equation_with_out_brackets = new RegExp(number.source+"(?:"+valid_signs.source+number.source+")+", "u") // /\-?\d+\.?\d*(?:[\+\-\*\/x]\-?\d+\.?\d*)+/g;
+
+var valid_input_characters = new RegExp( "[" + "\\d\\(\\)" + valid_signs.source.slice(1,-1) + "]", "u" );
+
+var test_equation = "  23  + ( 34 - 23 * ( 21 / 7) + 4) x 2    ";
+var test_equation2 = "  23  +  34 - 23 *  21 / 7 + 4 x 2    ";
 
 function calculate_equation( equation ){
     
-    var new_equation = equation.replace(/ /g, "");
-    var regular_expression_object;
-    var current_bracket;
-    var current_expression;
-    var numbers_object;
-    var result = 0;
+    if (check_valid_equation( equation ) ){
 
-    while (new_equation.match(/\-?\d*\.?\d*/)){
+        var new_equation = modify_equation( equation );
+        var regular_expression_object;
+        var current_bracket;
+        var current_expression;
+        var numbers_object;
+        var result = 0;
 
-        current_bracket = new_equation.match(equation_with_brackets);
-        if (current_bracket){    
-            current_expression = current_bracket[0].match(multi_div_equation)
-            
-            while( current_expression ){
+        while (new_equation.match(/\-?\d*\.?\d*/)){
 
-                if( current_expression[0].match( /[/]/ ) ){
-                    number_object = current_expression[0].match( number );
-                    result = Number(number_object[0]) / Number(number_object[1]);
-                }
+            current_bracket = new_equation.match(equation_with_brackets);
+            if (current_bracket){    
+                current_expression = current_bracket[0].match(multi_div_equation)
                 
-                else if( current_expression[0].match( /[x\*]/ ) ){
-                    number_object = current_expression[0].match( number );
-                    result = Number(number_object[0]) * Number(number_object[1]);
-                }
-
-                new_equation = new_equation.replace( current_expression[0].toString(), result.toString() );
-                
-                result = 0;
-
-                current_bracket = new_equation.match(equation_with_brackets);
-                if(!current_bracket){
-                    break;
-                }
-                current_expression = current_bracket[0].match(multi_div_equation);
-            }
-
-            
-            if(current_bracket){
-                current_expression = current_bracket[0].match(add_sub_equation)
-
                 while( current_expression ){
-                    if( current_expression[0].match( /[+]/ ) ){
+
+                    if( current_expression[0].match( /[/]/ ) ){
                         number_object = current_expression[0].match( number );
-                        result = Number(number_object[0]) + Number(number_object[1]);
+                        result = Number(number_object[0]) / Number(number_object[1]);
                     }
-                    else if(current_expression[0].match( /[-]/ ) ){
+                    
+                    else if( current_expression[0].match( /[x\*]/ ) ){
                         number_object = current_expression[0].match( number );
-                        result = Number(number_object[0]) - Number(number_object[1]);
+                        result = Number(number_object[0]) * Number(number_object[1]);
                     }
 
                     new_equation = new_equation.replace( current_expression[0].toString(), result.toString() );
+                    
                     result = 0;
 
                     current_bracket = new_equation.match(equation_with_brackets);
                     if(!current_bracket){
                         break;
                     }
+                    current_expression = current_bracket[0].match(multi_div_equation);
+                }
+
+                
+                if(current_bracket){
                     current_expression = current_bracket[0].match(add_sub_equation)
-                }
 
-            }
+                    while( current_expression ){
+                        if( current_expression[0].match( /[+]/ ) ){
+                            number_object = current_expression[0].match( number );
+                            result = Number(number_object[0]) + Number(number_object[1]);
+                        }
+                        else if(current_expression[0].match( /[-]/ ) ){
+                            number_object = current_expression[0].match( number );
+                            result = Number(number_object[0]) - Number(number_object[1]);
+                        }
 
-            var temp = new_equation.match( /\(\-?\d+\.?\d*(?=\))/ )[0];
-            var value = temp.slice(1, temp.length);
-            new_equation = new_equation.replace( new_equation.match(/\(\-?\d+\.?\d*\)/)[0], value );
-        }
-        else{
-            current_bracket = new_equation.match(equation_with_out_brackets);
-            while( current_expression ){
+                        new_equation = new_equation.replace( current_expression[0].toString(), result.toString() );
+                        result = 0;
 
-                if( current_expression[0].match( /[/]/ ) ){
-                    number_object = current_expression[0].match( number );
-                    result = Number(number_object[0]) / Number(number_object[1]);
-                }
-                
-                else if( current_expression[0].match( /[x\*]/ ) ){
-                    number_object = current_expression[0].match( number );
-                    result = Number(number_object[0]) * Number(number_object[1]);
-                }
-
-                new_equation = new_equation.replace( current_expression[0].toString(), result.toString() );
-                
-                result = 0;
-
-                current_bracket = new_equation.match(equation_with_out_brackets);
-                if(!current_bracket){
-                    break;
-                }
-                current_expression = current_bracket[0].match(multi_div_equation);
-            }
-
-            current_expression = current_bracket[0].match(add_sub_equation)
-            if(current_bracket){
-                current_expression = current_bracket[0].match(add_sub_equation)
-
-                while( current_expression ){
-                    if( current_expression[0].match( /[+]/ ) ){
-                        number_object = current_expression[0].match( number );
-                        result = Number(number_object[0]) + Number(number_object[1]);
+                        current_bracket = new_equation.match(equation_with_brackets);
+                        if(!current_bracket){
+                            break;
+                        }
+                        current_expression = current_bracket[0].match(add_sub_equation)
                     }
-                    else if(current_expression[0].match( /[-]/ ) ){
+
+                }
+
+                var temp = new_equation.match( /\(\-?\d+\.?\d*(?=\))/ )[0];
+                var value = temp.slice(1, temp.length);
+                new_equation = new_equation.replace( new_equation.match(/\(\-?\d+\.?\d*\)/)[0], value );
+            }
+            else{
+                current_bracket = new_equation.match(equation_with_out_brackets);
+                while( current_expression ){
+
+                    if( current_expression[0].match( /[/]/ ) ){
                         number_object = current_expression[0].match( number );
-                        result = Number(number_object[0]) - Number(number_object[1]);
+                        result = Number(number_object[0]) / Number(number_object[1]);
+                    }
+                    
+                    else if( current_expression[0].match( /[x\*]/ ) ){
+                        number_object = current_expression[0].match( number );
+                        result = Number(number_object[0]) * Number(number_object[1]);
                     }
 
                     new_equation = new_equation.replace( current_expression[0].toString(), result.toString() );
+                    
                     result = 0;
 
                     current_bracket = new_equation.match(equation_with_out_brackets);
                     if(!current_bracket){
                         break;
                     }
-                    current_expression = current_bracket[0].match(add_sub_equation)
+                    current_expression = current_bracket[0].match(multi_div_equation);
                 }
 
+                current_expression = current_bracket[0].match(add_sub_equation)
+                if(current_bracket){
+                    current_expression = current_bracket[0].match(add_sub_equation)
+
+                    while( current_expression ){
+                        if( current_expression[0].match( /[+]/ ) ){
+                            number_object = current_expression[0].match( number );
+                            result = Number(number_object[0]) + Number(number_object[1]);
+                        }
+                        else if(current_expression[0].match( /[-]/ ) ){
+                            number_object = current_expression[0].match( number );
+                            result = Number(number_object[0]) - Number(number_object[1]);
+                        }
+
+                        new_equation = new_equation.replace( current_expression[0].toString(), result.toString() );
+                        result = 0;
+
+                        current_bracket = new_equation.match(equation_with_out_brackets);
+                        if(!current_bracket){
+                            break;
+                        }
+                        current_expression = current_bracket[0].match(add_sub_equation)
+                    }
+
+                }
+                break;
             }
-            break;
         }
     }
-    return new_equation;
-
-     
-
-    return regular_expression_object;
+    else{
+        new_equation = false;
+    }
+    return parseInt(new_equation);
 }
+
+function new_evaluation( equation ){
+
+    var new_equation = modify_equation( equation );
+    var result = false;
+
+    if ( check_valid_equation( new_equation ) ){
+        
+        // Continues loop until only one number remains
+        // Will still return for negative and decimal answers
+        while( !new_equation.match( /^\-?\d+(?:\.\d+)?$/) ){
+
+
+
+        }
+
+    }
+
+    return result;
+
+}
+
 
 function check_valid_numbers( euqation, number_list ){
 
@@ -324,9 +368,9 @@ function check_valid_numbers( euqation, number_list ){
 }
 
 function check_valid_equation( equation ){
+    
     var is_valid = false;
-    var has_match = false;
-    var new_equation = equation.replace( / /g, "" );
+    var new_equation = modify_equation( equation );
 
     while( new_equation.match( /\((?:100|[1-9]{1,2})(?:[\+\-\*\/x](?:100|[1-9]{1,2}))+\)/ ) ){
         new_equation = new_equation.replace( /\((?:[1-9]{1,2}|100)(?:[\+\-\*\/](?:[1-9]{1,2}|100))+\)/, "100" );
@@ -340,7 +384,21 @@ function check_valid_equation( equation ){
     return is_valid;
 }
 
+function modify_equation( equation ){
 
+    var new_equation = equation.replace( / /g, "" );
+    var matched_object = new_equation.match( /\d\(/g)
+    var numerical_value = "";
+
+    if (matched_object){
+        for (var i = 0; i < matched_object.length; i++) {
+            numerical_value = matched_object[i].match(/\d/)[0];
+            new_equation = new_equation.replace( numerical_value+"(", numerical_value+"*(" )
+        }
+    }
+
+    return new_equation;
+}
 
 
 //                                          //
