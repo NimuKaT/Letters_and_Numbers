@@ -295,6 +295,25 @@ body{
     cursor: move;
 }
 
+#reset_button{
+    display: inline;
+    height: 40px;
+    width: 80px;
+    position: absolute;
+    top: 85%;
+    left: 20%;
+    background:white;
+    color: black;
+    font-size: 25px;
+    text-align: center;
+    font-family: impact;
+    border-radius: 10px;
+}
+#reset_button:hover{
+    cursor: pointer;
+    border: 1px solid #000000
+
+}
 #check_button{
     display: inline;
     height: 60px;
@@ -313,7 +332,7 @@ body{
     cursor: pointer;
     border: 3px white solid;
 }
-}
+
 
 /*-------------------------------game 2----------------------------------*/
 #number_game{
@@ -331,5 +350,92 @@ body{
     font-family: cursive;
     color: tomato;
     text-align: center;
+}
+#inside_box{
+    display: inline;
+    position: fixed;
+    top: 40%;
+    left: 20%;
+    background-color: white;
+    border: 5px solid tomato;    
+    float: left;
+    width: 600px;
+    height: 80px;
+}
+
+.number_button{
+    display: inline;
+    position: relative;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    padding: 20px 30px;
+    float: top;
+    top:200px;
+    left:30%;
+    width: 30px;
+    height: 50px;
+}
+.number_button:hover{
+    cursor: move;
+}
+.operator_button{
+    display: inline;
+    position: relative;
+    background-color: white;
+    border-radius: 5px;
+    border: 3px solid #ffffff;
+    padding: 5px 20px;
+    float:top;
+    top:0px;
+    left:-12%;
+    width: 30px;
+    height: 50px;
+    text-align: center;
+    font-size: 30px;
+    font-family: cursive;
+    font-color:#000000;
+}
+.operator_button:hover{
+    cursor: move;
+    border: 3px solid #000000
+}
+#reset_button_1{
+    display: inline;
+    height: 40px;
+    width: 80px;
+    position: absolute;
+    top: 57%;
+    left: 70%;
+    background:white;
+    color: black;
+    font-size: 25px;
+    text-align: center;
+    font-family: impact;
+    border-radius: 10px;
+}
+#reset_button_1:hover{
+    cursor: pointer;
+    border: 1px solid #000000
+
+}
+
+#check_button_1{
+    display: inline;
+    height: 60px;
+    width: 100px;
+    position: absolute;
+    top: 75%;
+    left: 43%;
+    background:tomato;
+    color: white;
+    font-size: 40px;
+    text-align: center;
+    font-family: cursive;
+    border-radius: 10px;
+}
+#check_button_1:hover{    
+    cursor: pointer;
+    border: 3px black solid;
 }
 

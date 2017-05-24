@@ -78,7 +78,6 @@ function back_game_menu(){
         ba2.style.display = "none"; 
         mg1.style.display = "none"; 
         mg2.style.display = "none";
-
 }
 
 

@@ -23,17 +23,16 @@
                     <p id="note_title">Number Puzzle Rule: </p>
                     <p>To play the Number Puzzle Game, you must get as close as possible to the target number using the basic arithmetic operations and some or all of the smaller numbers. </p>
                     <p>For example, you may be shown the values 5, 8, 35, 20, 10 and the target number 54. The answer, in this case, is (8 * 35 - 20 + 10) / 5 = 54.</p>
-                
-                    
-
                 </div>
-            </div>
+         </div>
+
             <div id="middle_part" class="middle_style">
                 <div id="word_puzzle_buttonl" class="game1_button" type="button" onclick="gw1()"></div>
                 <div id="number_puzzle_buttonl" class="game2_button" type="button" onclick="gw2()"></div>
                 <div id="back_button1" clsss="back" type="button" onclick="back_game_selection()">Menu</div>
                 <div id="back_button2" class="back" type="button" onclick="back_game_menu()">Back</div>         
             </div>
+
             <div id="word_game" class="1">
                 <p id="g1_title">Word Puzzle</p>
                 <div id="blank_1" class="blank"></div>
@@ -47,40 +46,65 @@
                 <div id="blank_9" class="blank"></div>
 
                     <div id="drag_1" class="drag_1" draggable="true"
-                    ondragstart="drag(even)"></div>
+                    ondragstart="drag(event)"></div>
                     <div id="drag_2" class="drag_1" draggable="true"
-                    ondragstart="drag(even)"></div>
+                    ondragstart="drag(event)"></div>
                     <div id="drag_3" class="drag_1" draggable="true"
-                    ondragstart="drag(even)"></div>
+                    ondragstart="drag(event)"></div>
 
                     <div id="drag_4" class="drag_2" draggable="true"
-                    ondragstart="drag(even)"></div>
+                    ondragstart="drag(event)"></div>
                     <div id="drag_5" class="drag_2" draggable="true"
-                    ondragstart="drag(even)"></div>
+                    ondragstart="drag(event)"></div>
                     <div id="drag_6" class="drag_2" draggable="true"
-                    ondragstart="drag(even)"></div>
+                    ondragstart="drag(event)"></div>
 
                     <div id="drag_7" class="drag_3" draggable="true"
-                    ondragstart="drag(even)"></div>
+                    ondragstart="drag(event)"></div>
                     <div id="drag_8" class="drag_3" draggable="true"
-                    ondragstart="drag(even)"></div>
+                    ondragstart="drag(event)"></div>
                     <div id="drag_9" class="drag_3" draggable="true"
-                    ondragstart="drag(even)"></div>
+                    ondragstart="drag(event)"></div>
 
+                <div id="reset_button" onclick="">Reset</div>
                 <div id="check_button" onclick="">Run</div>
-                <div id="fresh" onclcik="">
-
-
-
-
-
-
-
+                <div id="refresh" onclcik=""></div>
+            </div>
 
             <div id="number_game" class="2">
-                <p id="g2_title">Number Puzzle</p>              
+                <p id="g2_title">Number Puzzle</p> 
+
+                <div id="inside_box" ondrop="drop(event)" ondragover="allowdrop(event)"></div>
+
+                <div class="number_button"  draggable="true"
+                    ondragstart="drag(event)"></div>
+                <div class="number_button"  draggable="true"
+                    ondragstart="drag(event)"></div>
+                <div class="number_button"  draggable="true"
+                    ondragstart="drag(event)"></div>
+                <div class="number_button"  draggable="true"
+                    ondragstart="drag(event)"></div>
+                <div class="number_button"  draggable="true"
+                    ondragstart="drag(event)"></div>
+
+                <div class="operator_button" value="+" draggable="true"
+                    ondragstart="drag(event)">+</div>
+                <div class="operator_button" value="-" draggable="true"
+                    ondragstart="drag(event)">-</div>
+                <div class="operator_button" value="×" draggable="true"
+                    ondragstart="drag(event)">*</div>
+                <div class="operator_button" value="÷" draggable="true"
+                    ondragstart="drag(event)">/</div>
+
+                <div class="operator_button" value="(" draggable="true"
+                    ondragstart="drag(even)">(</div>
+                <div class="operator_button" value=")" draggable="true"
+                    ondragstart="drag(even)">)</div>
+
+                <div id="reset_button_1" onclick="">Reset</div>
+                <div id="check_button_1" onclick="">Run</div>
             </div>
-        </div>      
+         
 
     </body>
 </html>
